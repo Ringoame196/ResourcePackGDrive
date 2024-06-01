@@ -1,12 +1,11 @@
 # ResourcePackGDrive
 
 ## プラグイン説明
+コマンドでGoogleDriveの共有リンクから参加者にリソースパックを読み込ませることができるようにするプラグイン
 
 ## コマンド
 
 ## 使い方
-
-## configファイル
 
 ## 開発環境
 - Minecraft Version : 1.19.3
