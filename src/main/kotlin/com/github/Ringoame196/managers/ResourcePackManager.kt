@@ -36,7 +36,7 @@ class ResourcePackManager(plugin: Plugin, dataFileName: String) {
         val clickMessage = TextComponent("[クリックで読み込み]")
         clickMessage.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/resourcepackgd")
         clickMessage.color = net.md_5.bungee.api.ChatColor.YELLOW
-        clickMessage.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, Text(id))
+        clickMessage.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, Text("リソースパック読み込み"))
 
         // サフィックスメッセージ部分
         val suffix = TextComponent(" または /resourcepackgd")
