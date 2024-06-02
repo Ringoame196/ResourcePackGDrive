@@ -12,7 +12,7 @@ import java.io.File
 
 class ResourcePackManager(plugin: Plugin, dataFileName: String) {
     private val pluginName = plugin.name
-    private val key = "resorcePackURL"
+    private val key = "resorcePackID"
     private val dataFile = File(plugin.dataFolder, dataFileName)
     private val googleDriveManager = GoogleDriveManager()
     private val yml = YmlManager(dataFile)
@@ -23,9 +23,9 @@ class ResourcePackManager(plugin: Plugin, dataFileName: String) {
     fun loadResourcePack(player: Player) {
         if (id == null) player.sendMessage("${ChatColor.RED}[$pluginName] リソースパックが未設定です")
         else {
-            val downloadURL = googleDriveManager.conversionDownloadURL(id)
+            val downloadURL = googleDriveManager.makeDownloadURL(id)
             player.setResourcePack(downloadURL)
-            player.sendMessage("${ChatColor.GOLD}[$pluginName] リソースパックを読み込みました\n${ChatColor.RED}サーバーリソースパック無効 または BEの場合は反映されません")
+            player.sendMessage("${ChatColor.GOLD}[$pluginName] リソースパックを読み込み処理開始\n${ChatColor.RED}正常に読み込み開始されない場合はファイルが破損されている可能性があります")
         }
     }
     fun sendResourcePackLoadMessage(sender: Player) {
@@ -41,11 +41,15 @@ class ResourcePackManager(plugin: Plugin, dataFileName: String) {
         // サフィックスメッセージ部分
         val suffix = TextComponent(" または /resourcepackgd")
 
+        // 注意文部分
+        val caveat = TextComponent("\n${ChatColor.RED}サーバーリソースパック無効 または BEの場合は反映されません")
+
         // メッセージを構築
         val finalMessage = TextComponent()
         finalMessage.addExtra(prefix)
         finalMessage.addExtra(clickMessage)
         finalMessage.addExtra(suffix)
+        finalMessage.addExtra(caveat)
 
         // メッセージをプレイヤーに送信
         sender.sendMessage("--------------------------------------")

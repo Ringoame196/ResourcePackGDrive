@@ -13,6 +13,6 @@ class Main : JavaPlugin() {
         saveResource(dataFileName, false)
         server.pluginManager.registerEvents(PlayerJoinEvent(plugin, dataFileName), plugin)
         getCommand(command)!!.setExecutor(ResourcePackGD(plugin, dataFileName))
-        getCommand(command)!!.setTabCompleter(TabExecutor())
+        getCommand(command)!!.tabCompleter = TabExecutor()
     }
 }

@@ -56,8 +56,8 @@ class ResourcePackGD(private val plugin: Plugin, private val dataFileName: Strin
     private fun setResourcePackURL(url: String, sender: CommandSender) {
         // リソースパックを設定する
         val googleDriveManager = GoogleDriveManager()
-        if (!googleDriveManager.checkGoogleDriveURL(url)) {
-            sender.sendMessage("${ChatColor.RED}このURLはGoogleドライブの共有リンクではありません")
+        if (!googleDriveManager.checkGoogleLinkDriveURL(url)) {
+            sender.sendMessage("${ChatColor.RED}このURLはGoogleドライブのリンクではありません")
             return
         }
         val resourcePackManager = ResourcePackManager(plugin, dataFileName)
