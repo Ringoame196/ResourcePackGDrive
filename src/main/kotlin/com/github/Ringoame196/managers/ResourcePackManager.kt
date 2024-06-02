@@ -14,15 +14,17 @@ class ResourcePackManager(plugin: Plugin, dataFileName: String) {
     private val pluginName = plugin.name
     private val key = "resorcePackURL"
     private val dataFile = File(plugin.dataFolder, dataFileName)
+    private val googleDriveManager = GoogleDriveManager()
     private val yml = YmlManager(dataFile)
-    val resourcePackURL = yml.acquisitionStringValue(key)
+    val id = yml.acquisitionStringValue(key)
     fun setResourcePack(url: String?) {
         yml.setValue(key, url)
     }
     fun loadResourcePack(player: Player) {
-        if (resourcePackURL == null) player.sendMessage("${ChatColor.RED}[$pluginName] リソースパックが未設定です")
+        if (id == null) player.sendMessage("${ChatColor.RED}[$pluginName] リソースパックが未設定です")
         else {
-            player.setResourcePack(resourcePackURL)
+            val downloadURL = googleDriveManager.conversionDownloadURL(id)
+            player.setResourcePack(downloadURL)
             player.sendMessage("${ChatColor.GOLD}[$pluginName] リソースパックを読み込みました\n${ChatColor.RED}サーバーリソースパック無効 または BEの場合は反映されません")
         }
     }
@@ -34,7 +36,7 @@ class ResourcePackManager(plugin: Plugin, dataFileName: String) {
         val clickMessage = TextComponent("[クリックで読み込み]")
         clickMessage.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/resourcepackgd")
         clickMessage.color = net.md_5.bungee.api.ChatColor.YELLOW
-        clickMessage.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, Text(resourcePackURL))
+        clickMessage.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, Text(id))
 
         // サフィックスメッセージ部分
         val suffix = TextComponent(" または /resourcepackgd")

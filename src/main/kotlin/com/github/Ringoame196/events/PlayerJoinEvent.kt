@@ -10,7 +10,7 @@ class PlayerJoinEvent(plugin: Plugin, dataFileName: String) : Listener {
     private val resourcePackManager = ResourcePackManager(plugin, dataFileName)
     @EventHandler
     fun onPlayerJoin(e: PlayerJoinEvent) {
-        resourcePackManager.resourcePackURL ?: return // 未設定なら実行しない
+        resourcePackManager.id ?: return // 未設定なら実行しない
         val player = e.player
         // 新規参加者にリソースパック読み込みメッセージを送信する
         resourcePackManager.sendResourcePackLoadMessage(player)
